@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Registration</title>
+</head>
+<body>
+    <h1>Register here!</h1>
+    <form action="/user/create_user" method="post">
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name">
+        <br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name">
+        <br>
+        <label for="email">Email:</label>
+        <input type="text" name="email">
+        <br>
+        <label for="password">Password:</label>
+        <input type="text" name="password">
+        <br>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="text" name="confirm_password">
+        <br>
+        <button>Create User</button>
+    </form>
+</body>
+</html>
