@@ -42,7 +42,7 @@ def login(request):
             if bcrypt.checkpw(request.POST['password'].encode(), log_user.password.encode()):
                 request.session['logged_user'] = log_user.id
                 return redirect('/user/dashboard')
-            messages.error(request, "Email or password are incorrect.")
+        messages.error(request, "Email or password are incorrect.")
             
     return redirect("/")
 
@@ -53,3 +53,9 @@ def dashboard(request):
         'logged_user' : User.objects.get(id=request.session['logged_user'])
     }
     return render(request, 'dashboard.html', context)
+
+def create_book(request):
+    return redirect('/book/book_form')
+
+def book_form(request):
+    return render(request, 'add_book.html')

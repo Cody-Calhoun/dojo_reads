@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a new Book 📚</title>
+</head>
+<body>
+    <a href="/user/dashboard">Home</a>
+    <a href="#">Logout</a>
+    <h1>Add a new Book Title and review! 📚</h1>
+
+    <form action="/book/create" method="post">
+    {% csrf_token %}
+    <label for="title">Book title:</label>
+    <input type="text" name="title">
+    <br>
+    <label for="author">Author:</label>
+    <select name="author">
+        <option value="-1">Please choose an author</option>
+        {% for author in authors %}
+        <option value="{{author.id}}">{{author.name}}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="add_author">Or add a new author</label>
+    <input type="text" name="author_name">
+    <br>
+    <label for="content">Review:</label>
+    <textarea name="content" cols="20" rows="3"></textarea>
+    <br>
+    <label for="rating">Rating:</label>
+    <select name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <button>Create Book</button>
+
+    </form>
+</body>
+</html>
