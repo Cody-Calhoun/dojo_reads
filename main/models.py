@@ -60,6 +60,8 @@ class Book(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = BookManager()
+    # author = []
+    # book_reviews = []
 
 class Author(models.Model):
     name = models.CharField(max_length=75)

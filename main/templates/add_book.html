@@ -10,21 +10,27 @@
     <a href="/user/dashboard">Home</a>
     <a href="#">Logout</a>
     <h1>Add a new Book Title and review! 📚</h1>
-
+    {% if messages %}
+    <ul>    
+        {% for message in messages %}    
+            <li>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form action="/book/create" method="post">
     {% csrf_token %}
     <label for="title">Book title:</label>
     <input type="text" name="title">
     <br>
     <label for="author">Author:</label>
-    <select name="author">
+    <select name="author_dropdown">
         <option value="-1">Please choose an author</option>
         {% for author in authors %}
         <option value="{{author.id}}">{{author.name}}</option>
         {% endfor %}
     </select>
     <br>
-    <label for="add_author">Or add a new author</label>
+    <label for="author_name">Or add a new author</label>
     <input type="text" name="author_name">
     <br>
     <label for="content">Review:</label>

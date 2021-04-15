@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Book!</title>
+</head>
+<body>
+    <h1>{{book.title}}</h1>
+    <ul>
+        {% for author in book.authors.all %}
+        <li>{{author.name}}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h2>Review:</h2>
+    {% for review in book.book_reviews.all %}
+    <hr>
+    <p>Rating: {{review.rating}}</p>
+    <p>Review Author: {{review.user_review.name}}</p>
+    <p>Posted at: {{review.created_at}}</p>
+    {% endfor %}
+
+    <h1>Add a Review</h1>
+    <form action="/book/add_review" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="book_reviewed" value={{book.id}}>
+    <label for="content">Review:</label>
+    <textarea name="content" cols="20" rows="3"></textarea>
+    <br>
+    <label for="rating">Rating:</label>
+    <select name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <button>Create Review</button>
+    </form>
+</body>
+</html>

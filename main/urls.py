@@ -8,4 +8,6 @@ urlpatterns = [
     path('user/login', views.login),
     path('book/create', views.create_book),
     path('book/book_form', views.book_form),
+    path('book/<int:book_id>', views.show_book),
+    path('book/add_review', views.add_review),
 ]
