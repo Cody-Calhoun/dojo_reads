@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+</head>
+<body>
+    <a href="/user/dashboard">Home</a>
+    <a href="/book/book_form">Add another book and review</a>
+    <h1>User Alias: {{one_user.alias}}</h1>
+    <h3>User Name: {{one_user.name}}</h3>
+    <h3>User Name: {{one_user.email}}</h3>
+    <h4>Count: {{one_user.user_reviews.all|length}}</h4>
+
+    <h2>Posted reviews on the following books:</h2>
+    <ul>
+
+        {% for review in one_user.user_reviews.all%}
+        <li>
+        <a href="/book/{{review.book_reviewed.id}}">{{review.book_reviewed.title}}</a>
+        {% endfor %}</li>
+    </ul>
+
+</body>
+</html>

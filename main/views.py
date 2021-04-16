@@ -48,13 +48,20 @@ def login(request):
 
 
 def dashboard(request):
+    # if 'logged_user' not in request.session:
+    #     return redirect('/')
 
     context = {
-        'logged_user' : User.objects.get(id=request.session['logged_user'])
+        'logged_user' : User.objects.get(id=request.session['logged_user']),
+        'all_books' : Book.objects.all(),
+        'recent_reviews': Review.objects.order_by('-created_at')[:3]
     }
     return render(request, 'dashboard.html', context)
 
 def create_book(request):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/')
     if request.method == "POST":
         book_errors = Book.objects.book_validator(request.POST)
         review_errors = Review.objects.review_validator(request.POST)
@@ -86,18 +93,26 @@ def create_book(request):
 
 def book_form(request):
 
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/')
+
     context = {
         'authors': Author.objects.all()
     }
     return render(request, 'add_book.html', context)
 
 def show_book(request, book_id):
+    # if 'logged_user' not in request.session:
+    #     return redirect('/')
     context = {
         'book' : Book.objects.get(id=book_id)
     }
     return render(request, 'one_book.html', context)
 
 def add_review(request):
+    # if 'logged_user' not in request.session:
+    #     return redirect('/')
     if request.method == "POST":
 
         book = Book.objects.get(id=request.POST['book_reviewed'])
@@ -112,5 +127,29 @@ def add_review(request):
         review = Review.objects.create(content = request.POST['content'], rating = int(request.POST['rating']), book_reviewed = book, user_review = user)
 
         return redirect(f'/book/{book.id}')
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')
+
+def user_page(request, user_id):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/')
+    user = User.objects.get(id=user_id)
+
+    context = {
+        'one_user': user
+    }
+    return render(request, 'user_page.html', context)
+
+def delete_review(request, review_id):
+    if 'logged_user' not in request.session:
+        messages.error(request, "Please register or log in first!")
+        return redirect('/')
+    review = Review.objects.get(id=review_id)
+    review.delete()
+    return redirect(f'/book/{review.book_reviewed.id}')
+    
 
 

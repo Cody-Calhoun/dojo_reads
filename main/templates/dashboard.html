@@ -9,5 +9,25 @@
 <body>
     <h1>Welcome {{logged_user.name}}!</h1>
     <a href="/book/book_form">Create New Book and Review</a>
+    <br>
+    <h2>Recent Reviews:</h2>
+    {% for review in recent_reviews %}
+        <h4><a href="/book/{{review.book_reviewed.id}}">{{review.book_reviewed.title}}</a></h4>
+        <br>
+        <p>Rating:{{review.rating}}</p>
+        <br>
+        <p><a href="/user/{{review.user_review.id}}">{{review.user_review.name}}</a> says: {{review.content}}</p>
+        <br>
+        <p>Posted on {{review.created_at}}</p>        
+    {% endfor %}
+    <hr>
+    <h3>All books</h3>
+    <ul>
+    {% for book in all_books %}
+        {% if book.book_reviews.all|length > 0 %}
+        <li>{{book.title}}</li>
+        {% endif %}
+    {%endfor%}
+</ul>
 </body>
 </html>

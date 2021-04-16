@@ -54,6 +54,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+    #user_reviews = []
 
 class Book(models.Model):
     title = models.CharField(max_length=100)

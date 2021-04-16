@@ -18,8 +18,11 @@
     {% for review in book.book_reviews.all %}
     <hr>
     <p>Rating: {{review.rating}}</p>
-    <p>Review Author: {{review.user_review.name}}</p>
+    <p>Review Author: <a href="/user/{{review.user_review.id}}">{{review.user_review.name}}</a></p>
     <p>Posted at: {{review.created_at}}</p>
+    {% if review.user_review.id == request.session.logged_user%}
+    <a href="/review/{{review.id}}/delete">Delete this review</a>
+    {%endif%}
     {% endfor %}
 
     <h1>Add a Review</h1>
